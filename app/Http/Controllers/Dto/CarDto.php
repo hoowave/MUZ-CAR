@@ -20,14 +20,22 @@ class CarDto
             'brand' => 'required|string|max:20',
             'model' => 'required|string|max:50',
             'type' => 'required|string|max:10',
-            'introduction' => 'required|string'
+            'introduction' => 'required|string',
+            'year' => 'nullable|integer|between:2010,2024',
+            'fuel' => 'nullable|string|in:휘발유,경유,LPG',
+            'seats' => 'nullable|integer|between:1,8',
+            'gear' => 'nullable|string|in:수동,자동',
         ]);
 
         return new CreateCarCmd(
             $validatedData['brand'],
             $validatedData['model'],
             $validatedData['type'],
-            $validatedData['introduction']
+            $validatedData['introduction'],
+            $validatedData['year'],
+            $validatedData['fuel'],
+            $validatedData['seats'],
+            $validatedData['gear'],
         );
     }
 

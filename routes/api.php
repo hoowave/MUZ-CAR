@@ -11,10 +11,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/create', [CarController::class, 'create']);
 
-Route::post('/list', [CarController::class, 'list']);
+Route::get('/list', [CarController::class, 'list']);
 
 Route::post('/info', [CarController::class, 'info']);
 
 Route::post('/reservation', [ReservationController::class, 'reservation']);
 
 Route::post('/reservation/intro', [ReservationController::class, 'reservationIntro']);
+
+Route::get('/show', [ReservationController::class, 'reservationShow']);

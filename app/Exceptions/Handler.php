@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use ErrorException;
+use Psr\Log\LogLevel;
+use App\Exceptions\BaseErrorException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -46,5 +49,13 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+/*
+        $this->renderable(function (ErrorException $e, $request) {
+            if ($e instanceof ErrorException) {
+                $error = BaseErrorException::fromErrorException();
+                return $error->render($request);
+            }
+        });
+        */
     }
 }

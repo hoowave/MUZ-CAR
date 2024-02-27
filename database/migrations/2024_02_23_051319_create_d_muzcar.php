@@ -23,6 +23,18 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('car_details', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('carId');
+            $table->integer('year')->nullable();
+            $table->string('fuel')->nullable();
+            $table->integer('seats')->nullable();
+            $table->string('gear')->nullable();
+            $table->timestamps();
+
+            $table->foreign('carId')->references('id')->on('cars')->onDelete('cascade');
+        });
+
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('carId');
@@ -45,5 +57,7 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('cars');
+        Schema::dropIfExists('reservations');
+        Schema::dropIfExists('car_details');
     }
 };

@@ -19,17 +19,20 @@ class CarController extends Controller{
     public function create(Request $request){
         $carCmd = (new CarDto($request))->createInitCmd();
         $carModel = $this->carFacade->create($carCmd);
-        return CommonResponse::success($carModel . " 차량의 등록이 완료되었습니다.");
+        $response = CommonResponse::successForMessage($carModel . " 차량의 등록이 완료되었습니다.");
+        return $response;
     }
 
     public function list(){
         $carInfos = $this->carFacade->list();
-        return CommonResponse::successForData($carInfos);
+        $response = CommonResponse::successForData($carInfos);
+        return $response;
     }
 
     public function info(Request $request){
         $infoCarCmd = (new CarDto($request))->infoInitCmd();
         $carInfo = $this->carFacade->info($infoCarCmd);
-        return CommonResponse::successForData($carInfo);
+        $response = CommonResponse::successForData($carInfo);;
+        return $response;
     }
 }

@@ -19,4 +19,12 @@ class ReservationFacade{
     public function reservationIntro(ReservationCmd $reservationCmd){
         return $this->reservationService->reservationIntro($reservationCmd);
     }
+
+    public function reservationShow(){
+        return $this->reservationService->reservationShow();
+    }
+
+    public function info(InfoReservationCmd $infoReservationCmd){
+        return $this->reservationService->info($infoReservationCmd);
+    }
 }

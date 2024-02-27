@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dto;
 
 use Illuminate\Http\Request;
 use App\Models\Reservation\Command\ReservationCmd;
+use App\Models\Reservation\Command\InfoReservationCmd;
 
 class ReservationDto{
     protected $request;
@@ -23,6 +24,16 @@ class ReservationDto{
             $validatedData['carId'],
             $validatedData['startAt'],
             $validatedData['endAt']
+        );
+    }
+
+    public function infoInitCmd(){
+        $validatedData = $this->request->validate([
+            'id' => 'required|numeric'
+        ]);
+
+        return new InfoReservationCmd(
+            $validatedData['id']
         );
     }
 }

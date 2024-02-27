@@ -8,20 +8,29 @@ use App\Models\Car\Info\CarInfo;
 use App\Models\Car\Command\CarCmd;
 use App\Models\Car\Model\CarModel;
 use App\Models\Car\Info\CarListInfo;
+use App\Models\Car\Info\CarIntroInfo;
 use App\Exceptions\BaseErrorException;
 use App\Models\Car\Command\InfoCarCmd;
+use App\Models\Car\Info\CarDetailInfo;
 use App\Models\Car\Command\CreateCarCmd;
+use App\Models\Car\Model\CarDetailModel;
 
 
 class CarService{
 
     public function create(CreateCarCmd $createCarCmd){
-        $carDomain = $createCarCmd->toEntity();
+        $carDomain = $createCarCmd->toCarEntity();
         if(CarModel::isModel($carDomain->getModel())){
             throw new BaseErrorException('이미 존재하는 모델입니다.');
         }
         $carModel = $carDomain->toModel();
         $carModel->save();
+
+        $carId = $carModel->id;
+        $carDetailDomain = $createCarCmd->toCarDetailEntity($carId);
+        $carDetailModel = $carDetailDomain->toModel();
+        $carDetailModel->save();
+
         return $carDomain->getModel();
     }
 
@@ -31,6 +40,7 @@ class CarService{
     
         foreach ($carModels as $carModel) {
             $carInfoTemp = new CarInfo(
+                $carModel->id,
                 $carModel->brand,
                 $carModel->model,
                 $carModel->type,
@@ -49,7 +59,9 @@ class CarService{
         if(!$carModel){
             throw new BaseErrorException('차량 정보를 찾을 수 없습니다.');
         }
+
         $carInfo = new CarInfo(
+            $carModel->id,
             $carModel->brand,
             $carModel->model,
             $carModel->type,
@@ -58,7 +70,23 @@ class CarService{
             $carModel->created_at,
             $carModel->updated_at
         );
-        return $carInfo->toArray();
+
+        $carDetailModel = CarDetailModel::findByCarId($infoCarCmd->getId());
+
+        $carDetailInfo = new CarDetailInfo(
+            $carDetailModel->id,
+            $carDetailModel->carId,
+            $carDetailModel->year,
+            $carDetailModel->fuel,
+            $carDetailModel->seats,
+            $carDetailModel->gear,
+            $carDetailModel->created_at,
+            $carDetailModel->updated_at
+        );
+
+        $carIntroInfo = new CarIntroInfo($carInfo, $carDetailInfo);
+        
+        return $carIntroInfo->toArray();
     }
     
 }

@@ -13,6 +13,14 @@ class CommonResponse
         ], 200);
     }
 
+    public static function successForMessage($message)
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => $message
+        ], 200);
+    }
+
     public static function successForData($data)
     {
         return response()->json([

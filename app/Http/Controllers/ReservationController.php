@@ -19,13 +19,28 @@ class ReservationController extends Controller{
     public function reservation(Request $request){
         $reservationCmd = (new ReservationDto($request))->reservationInitCmd();
         $ReservationInfo =$this->reservationFacade->reservation($reservationCmd);
-        return CommonResponse::success("차량 예약이 완료되었습니다.", $ReservationInfo);
+        $response = CommonResponse::success("차량 예약이 완료되었습니다.", $ReservationInfo);
+        return $response;
     }
 
     public function reservationIntro(Request $request){
         $reservationCmd = (new ReservationDto($request))->reservationInitCmd();
         $ReservationInfo = $this->reservationFacade->reservationIntro($reservationCmd);
-        return CommonResponse::successForData($ReservationInfo);
+        $response = CommonResponse::successForData($ReservationInfo);
+        return $response;
+    }
+
+    public function reservationShow(Request $request){
+        $reservationInfos = $this->reservationFacade->reservationShow();
+        $response = CommonResponse::successForData($reservationInfos);
+        return $response; 
+    }
+
+    public function info(Request $request){
+        $infoCarCmd = (new ReservationDto($request))->infoInitCmd();
+        $carInfo = $this->carFacade->info($infoCarCmd);
+        $response = CommonResponse::successForData($carInfo);;
+        return $response;
     }
     
 }

@@ -2,7 +2,10 @@
 
 namespace App\Models\Car\Info;
 
+use DateTime;
+
 class CarInfo{
+    protected $id;
     protected $brand;
     protected $model;
     protected $type;
@@ -11,7 +14,8 @@ class CarInfo{
     protected $created_at;
     protected $updated_at;
 
-    public function __construct($brand, $model, $type, $introduction, $del_yn, $created_at, $updated_at) {
+    public function __construct($id, $brand, $model, $type, $introduction, $del_yn, $created_at, $updated_at) {
+        $this->id = $id;
         $this->brand = $brand;
         $this->model = $model;
         $this->type = $type;
@@ -22,14 +26,17 @@ class CarInfo{
     }
 
     public function toArray() {
+        $dateCreatedAt = new DateTime($this->created_at);
+        $dateUpdatedAt = new DateTime($this->updated_at);
         return [
+            'id' => $this->id,
             'brand' => $this->brand,
             'model' => $this->model,
             'type' => $this->type,
             'introduction' => $this->introduction,
             'del_yn' => $this->del_yn,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $dateCreatedAt->format('Y-m-d H:i'),
+            'updated_at' => $dateUpdatedAt->format('Y-m-d H:i')
         ];
     }
 
