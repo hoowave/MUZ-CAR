@@ -25,7 +25,7 @@ class ReservationModel extends Model{
 
     public static function getList() {
         return self::join('cars', 'reservations.carId', '=', 'cars.id')
-        ->orderBy('reservations.created_at', 'desc')
+        ->orderBy('reservations.carId', 'desc')
         ->get(['reservations.*', 'cars.model as model']);
     }
 
