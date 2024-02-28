@@ -93,6 +93,9 @@
 
   const years = ref([])
   const open = ref(false)
+  const responseModal = ref(null);
+  const responseTitle = ref('');
+  const responseMessage = ref('');
 
   onMounted(() => {
   for (let year = 2010; year <= 2024; year++) {
@@ -107,10 +110,6 @@
   function closeModal() {
     open.value = false;
   }
-
-  const responseModal = ref(null);
-  const responseTitle = ref('');
-  const responseMessage = ref('');
 
   async function create() {
     const response = await fetch('http://localhost:8000/api/create', {
@@ -128,11 +127,11 @@
   }
 
   const formattedIntroduction = computed(() => {
-  if (props.car.introduction) {
-    return props.car.introduction.replace(/\n/g, '<br>');
-  }
-  return '';
-});
+    if (props.car.introduction) {
+      return props.car.introduction.replace(/\n/g, '<br>');
+    }
+    return '';
+  });
 
   defineExpose({ openModal, closeModal })
 

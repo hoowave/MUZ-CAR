@@ -8,6 +8,7 @@ use App\Models\Reservation\Info\ShowInfo;
 use App\Models\Reservation\Info\ReservationInfo;
 use App\Models\Reservation\Command\ReservationCmd;
 use App\Models\Reservation\Model\ReservationModel;
+use App\Models\Reservation\Command\InfoReservationCmd;
 
 class ReservationService{
 
@@ -26,12 +27,7 @@ class ReservationService{
         $reservationModel = $reservationDomain->toModel();
         $reservationModel->save();
         $carModel = CarModel::findById($reservationCmd->getCarId());
-        $reservationInfo = new ReservationInfo(
-            $reservationDomain,
-            $carModel->model,
-            "Y"
-        );
-        return $reservationInfo->toArray();
+        return $carModel->model;
     }
 
     public function reservationIntro(ReservationCmd $reservationCmd){
@@ -78,7 +74,23 @@ class ReservationService{
     }
 
     public function info(InfoReservationCmd $infoReservationCmd){
-
+        $reservationModel = ReservationModel::findByIdWithCar($infoReservationCmd->getId());
+        if(!$reservationModel){
+            throw new BaseErrorException('예약 정보를 찾을 수 없습니다.');
+        }
+        $showInfo = new ShowInfo(
+            $reservationModel->id,
+            $reservationModel->carId,
+            $reservationModel->model,
+            $reservationModel->startAt,
+            $reservationModel->endAt,
+            $reservationModel->minutes,
+            $reservationModel->cost,
+            $reservationModel->pay_yn,
+            $reservationModel->created_at,
+            $reservationModel->updated_at
+        );
+        return $showInfo->toArray();
     }
     
 }

@@ -4,6 +4,7 @@ namespace App\Http\Facades;
 
 use App\Models\Reservation\ReservationService;
 use App\Models\Reservation\Command\ReservationCmd;
+use App\Models\Reservation\Command\InfoReservationCmd;
 
 class ReservationFacade{
     protected ReservationService $reservationService;

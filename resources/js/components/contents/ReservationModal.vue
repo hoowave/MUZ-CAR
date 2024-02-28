@@ -81,6 +81,14 @@ const props = defineProps({
 
 const isOpen = ref(false)
 const carInfo = ref({})
+const startAt = ref(getInitialStartTime());
+const endAt = ref(getInitialEndTime());
+const stepMinutes = ref(15);
+const minStartTime = computed(() => startAt.value);
+const reservationIntroRef = ref(null)
+const responseModal = ref(null);
+const responseTitle = ref('');
+const responseMessage = ref('');
 
 async function openModal() {
   isOpen.value = true
@@ -114,9 +122,6 @@ const formattedIntroduction = computed(() => {
   return '';
 });
 
-const startAt = ref(getInitialStartTime());
-const endAt = ref(getInitialEndTime());
-
 function getInitialStartTime() {
   const now = new Date();
   now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -129,20 +134,11 @@ function getInitialEndTime() {
   return startTime.toISOString().slice(0, 16);
 }
 
-const stepMinutes = ref(15);
-
-const minStartTime = computed(() => startAt.value);
 const minEndTime = computed(() => {
   const minimumEndTime = new Date(startAt.value);
   minimumEndTime.setMinutes(minimumEndTime.getMinutes() + 60);
   return minimumEndTime.toISOString().slice(0, 16);
 });
-
-const reservationIntroRef = ref(null)
-
-const responseModal = ref(null);
-  const responseTitle = ref('');
-  const responseMessage = ref('');
 
 async function showModal() {
   const response = await fetch('http://localhost:8000/api/reservation/intro', {

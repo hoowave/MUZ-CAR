@@ -29,4 +29,10 @@ class ReservationModel extends Model{
         ->get(['reservations.*', 'cars.model as model']);
     }
 
+    public static function findByIdWithCar($id) {
+        return self::join('cars', 'reservations.carId', '=', 'cars.id')
+                   ->where('reservations.id', '=', $id)
+                   ->first(['reservations.*', 'cars.model as model']);
+    }
+
 }

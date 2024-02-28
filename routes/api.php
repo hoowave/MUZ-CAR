@@ -20,3 +20,5 @@ Route::post('/reservation', [ReservationController::class, 'reservation']);
 Route::post('/reservation/intro', [ReservationController::class, 'reservationIntro']);
 
 Route::get('/show', [ReservationController::class, 'reservationShow']);
+
+Route::post('/show', [ReservationController::class, 'info']);

@@ -20,5 +20,5 @@ Route::get('/reservation', function () {
 });
 
 Route::get('/show/{reservationId}', function ($reservationId) {
-    return Inertia::render('showInfo');
+    return Inertia::render('showInfo', ['reservationId' => $reservationId]);
 });

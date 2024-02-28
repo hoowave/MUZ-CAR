@@ -55,9 +55,11 @@
     startAt: String,
     endAt: String
   })
-  
-  const isOpen = ref(false)
-  const reservationData = ref({})
+  const isOpen = ref(false);
+  const reservationData = ref({});
+  const responseModal = ref(null);
+  const responseTitle = ref('');
+  const responseMessage = ref('');
   
   async function openModal() {
     const response = await fetch('http://localhost:8000/api/reservation/intro', {
@@ -84,13 +86,9 @@
     isOpen.value = false
   }
   
-  function handleClose(event) {
+  function handleClose() {
     closeModal()
   }
-
-  const responseModal = ref(null);
-  const responseTitle = ref('');
-  const responseMessage = ref('');
 
   async function reservation() {
     const reservationRequest = {
@@ -105,10 +103,8 @@
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(reservationRequest)
-  });
-
-  const data = await response.json();
-
+  })
+    const data = await response.json();
     responseTitle.value = data.status;
     responseMessage.value = data.message;
     responseModal.value.openModal();

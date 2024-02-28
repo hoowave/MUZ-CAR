@@ -49,13 +49,13 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
-/*
+        
         $this->renderable(function (ErrorException $e, $request) {
             if ($e instanceof ErrorException) {
                 $error = BaseErrorException::fromErrorException();
                 return $error->render($request);
             }
         });
-        */
+        
     }
 }
