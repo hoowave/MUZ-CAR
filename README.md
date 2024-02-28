@@ -110,7 +110,7 @@
 <summary>예약하기</summary>
 <img src="/introduce/reservation-1.png">
 <img src="/introduce/reservation-2.png">
-<img src="/introduce/crereservationate-3.png">
+<img src="/introduce/reservation-3.png">
 <img src="/introduce/reservation-4.png">
 </details>
 
