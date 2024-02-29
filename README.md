@@ -131,4 +131,60 @@
 그러나 제가 집중한 것은 우선 주어진 요구사항을 충실히 만족시키는 것이었습니다.<br>
 이 과정에서 시스템의 유연성과 확장성을 최대한 끌어올리려 노력했고, 사용자 경험을 향상시키기 위해 제공된 라우팅 정보를 기반으로 친화적이고 유연한 모달창 사용에 중점을 두었습니다.<br>
 만약 시간이 허락한다면, 회원가입, 로그인, 게시물 관리 등 추가적인 기능을 구현하여 서비스의 완성도를 더욱 높이고자 합니다.
+
 </details>
+
+## 컴파일 및 실행
+이 프로젝트에서 사용된 기술의 버전
+- PHP : 8.0.2 이상
+- Laravel : 9.19 이상
+- Vue : 3.2.37
+- Tailwind CSS : 3.4.1
+
+### 백엔드 서버
+
+1. 프로젝트를 클론합니다.
+```
+git clone https://github.com/hoowave/MUZ-CAR.git
+```
+2. PHP 의존성을 설치합니다.
+```
+composer install
+```
+3. 환경설정을 구성하기 위해 .env 파일을 생성합니다.
+```
+Windows : copy .env.example .env
+Mac : cp .env.example .env
+```
+4. .env 파일을 열여서 데이터베이스를 설정합니다.<br>
+d_muzcar 데이터베이스를 생성한 경우
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=d_muzcar
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+5. 애플리케이션 키를 생성합니다.
+```
+php artisan key:generate
+```
+
+6. 서버를 실행합니다.
+```
+php artisan serve
+```
+
+### 프론트엔드 서버
+
+1. 종속성을 설치합니다.
+```
+npm install
+```
+
+2. 개발 서버를 실행합니다.
+```
+npm run dev
+```
