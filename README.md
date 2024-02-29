@@ -141,7 +141,8 @@
 - Vue : 3.2.37
 - Tailwind CSS : 3.4.1
 
-### 백엔드 서버
+<details>
+<summary>백엔드 서버</summary>
 
 1. 프로젝트를 클론합니다.
 ```
@@ -177,7 +178,10 @@ php artisan key:generate
 php artisan serve
 ```
 
-### 프론트엔드 서버
+</details>
+
+<details>
+<summary>프론트엔드 서버</summary>
 
 1. 종속성을 설치합니다.
 ```
@@ -188,3 +192,7 @@ npm install
 ```
 npm run dev
 ```
+
+</details>
+
+접속 : http://localhost:8000
